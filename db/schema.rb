@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416190538) do
+ActiveRecord::Schema.define(version: 20180418141855) do
+
+  create_table "collections", force: :cascade do |t|
+    t.integer "mixtape_id"
+    t.integer "song_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mixtape_id"], name: "index_collections_on_mixtape_id"
+    t.index ["song_id"], name: "index_collections_on_song_id"
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.string "state"
@@ -22,25 +31,25 @@ ActiveRecord::Schema.define(version: 20180416190538) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
-  create_table "playlists", force: :cascade do |t|
-    t.string "playlist_name"
-    t.integer "user_id"
+  create_table "mixtapes", force: :cascade do |t|
+    t.string "mixtape_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_playlists_on_user_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_mixtapes_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
     t.string "song_title"
     t.string "song_artist"
-    t.integer "playlist_id_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "mp3_file_name"
     t.string "mp3_content_type"
     t.integer "mp3_file_size"
     t.datetime "mp3_updated_at"
-    t.index ["playlist_id_id"], name: "index_songs_on_playlist_id_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

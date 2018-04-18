@@ -12,7 +12,7 @@ gem 'turbolinks', '5.0.1'
 gem 'uglifier', '4.1.2'
 gem 'bcrypt', '3.1.11'
 gem 'bootstrap', '4.0.0'
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 5.2.0"
 
 group :development, :test do
   gem 'byebug', '9.1.0', platform: :mri
