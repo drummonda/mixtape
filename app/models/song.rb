@@ -1,7 +1,7 @@
 class Song < ApplicationRecord
   belongs_to :user
   has_many :collections
-  has_many :mixtapes, through: :collections
+  has_many :mixes, through: :collections
   #Mounts paperclip mp3
   has_attached_file :mp3
   # Validates that attachment is an audio file

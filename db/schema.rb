@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180418141855) do
+ActiveRecord::Schema.define(version: 20180419001758) do
 
   create_table "collections", force: :cascade do |t|
-    t.integer "mixtape_id"
     t.integer "song_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mixtape_id"], name: "index_collections_on_mixtape_id"
+    t.integer "mix_id"
+    t.index ["mix_id"], name: "index_collections_on_mix_id"
     t.index ["song_id"], name: "index_collections_on_song_id"
   end
 
@@ -31,12 +31,12 @@ ActiveRecord::Schema.define(version: 20180418141855) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
-  create_table "mixtapes", force: :cascade do |t|
-    t.string "mixtape_name"
+  create_table "mixes", force: :cascade do |t|
+    t.string "mix_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.index ["user_id"], name: "index_mixtapes_on_user_id"
+    t.index ["user_id"], name: "index_mixes_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|

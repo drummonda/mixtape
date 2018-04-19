@@ -1,4 +1,4 @@
 class Collection < ApplicationRecord
-  belongs_to :mixtape
+  belongs_to :mix
   belongs_to :song
 end

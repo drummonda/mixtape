@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # include Bcrypt gem for password encryption
   include BCrypt
 
-  has_many :playlists, dependent: :destroy
+  has_many :mixes, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends,
            -> { where(friendships: { state: 'accepted' }) },
@@ -13,18 +13,12 @@ class User < ApplicationRecord
   has_many :pending_friends,
            -> { where(friendships: { state: 'pending' }) },
            through: :friendships, source: :friend
-  # first_name must be present
-  validates :first_name, presence: true
-  # last_name must be present
-  validates :last_name, presence: true
+  # first_name, last_name must be present
+  validates :first_name, :last_name, presence: true
   # email must be present and unique
   validates :email, presence: true, uniqueness: true
-  # custom validation - first name not nil, is capitalized
-  validate :first_name_valid
-  # custom validation - last name not nil, is capitalized
-  validate :last_name_valid
-  # custom validation - email not nil, must have @ or '.'
-  validate :email_valid
+  # custom validation
+  validate :first_name_valid, :last_name_valid, :email_valid
 
   def full_name
     first_name + ' ' + last_name
@@ -40,10 +34,10 @@ class User < ApplicationRecord
   def accept_friend_request(friend)
     return unless Friendship.exists?(user: self, friend: friend) &&
                   Friendship.exists?(user: friend, friend: self)
-    @frienship1 = Friendship.where(user_id: id, friend_id: friend.id)
-    @friendship2 = Friendship.where(user_id: friend.id, friend_id: id)
-    @frienship1.update(state: 'accepted')
-    @friendship2.update(state: 'accepted')
+    user_frienship = Friendship.where(user_id: id, friend_id: friend.id)
+    friend_friendship = Friendship.where(user_id: friend.id, friend_id: id)
+    user_frienship.update(state: 'accepted')
+    friend_friendship.update(state: 'accepted')
   end
 
   def delete_friend(friend)

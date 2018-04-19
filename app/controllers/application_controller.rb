@@ -7,13 +7,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return unless User.exists?(session[:user_id])
-    @current_user = User.find(session[:user_id])
-    @current_user
+    @current_user ||= session[:user_id] && User.find(session[:user_id])
   end
 
   def authenticate_user
-    return if User.exists?(session[:user_id])
+    return if logged_in?
     redirect_to root_path
   end
 end

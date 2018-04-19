@@ -1,5 +1,6 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
 
   # GET /songs
   # GET /songs.json
@@ -19,46 +20,36 @@ class SongsController < ApplicationController
 
   # GET /songs/1/edit
   def edit
+    redirect_to root_path unless @song.user == current_user
   end
 
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(song_params)
+    @song = current_user.songs.new(song_params)
 
-    respond_to do |format|
-      if @song.save
-        format.html { redirect_to @song, notice: 'Song was successfully created.' }
-        format.json { render :show, status: :created, location: @song }
-      else
-        format.html { render :new }
-        format.json { render json: @song.errors, status: :unprocessable_entity }
-      end
+    if @song.save
+      redirect_to @song.user
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /songs/1
   # PATCH/PUT /songs/1.json
   def update
-    respond_to do |format|
-      if @song.update(song_params)
-        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
-        format.json { render :show, status: :ok, location: @song }
-      else
-        format.html { render :edit }
-        format.json { render json: @song.errors, status: :unprocessable_entity }
-      end
+    if @song.user == current_user && @song.update(song_params)
+      redirect_to @song.user
+    else
+      render :edit
     end
   end
 
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
-    @song.destroy
-    respond_to do |format|
-      format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @song.destroy if @song.user == current_user
+    redirect_back(fallback_location: @song.user)
   end
 
   private

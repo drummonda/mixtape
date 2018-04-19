@@ -1,33 +1,78 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Users</h1>
 
-<table>
+<table class="table table-light">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Password hash</th>
-      <th colspan="3"></th>
+      <th class="table-dark bg-primary">Name</th>
+      <th class="table-dark bg-primary">Email</th>
+      <th class="table-dark bg-primary" colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
+        <td><%= link_to user.full_name, user %></td>
         <td><%= user.email %></td>
-        <td><%= user.password_hash %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if logged_in? && current_user == user %>
+          <td><%= link_to 'Edit Profile', edit_user_path(user) %></td>
+          <td><%= link_to 'Delete Account', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% elsif logged_in? && current_user.friends.include?(user) %>
+          <td><%= link_to 'Remove Friend', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td></td>
+        <% elsif logged_in? && current_user.requested_friends.include?(user) %>
+          <td><%= link_to 'Cancel Friend Request', delete_friend_user_path(user), method: :delete, data: { confrim: 'Are you sure?' } %></td>
+          <td></td>
+        <% elsif logged_in? && current_user.pending_friends.include?(user) %>
+          <td><%= link_to 'Accept Friend Request', accept_friend_request_user_path(user), method: :patch %></td>
+          <td><%= link_to 'Decline Friend Request', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% elsif logged_in? %>
+          <td><%= link_to 'Send Friend Request', send_friend_request_user_path(user), method: :post %>
+          <td></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+<h1>Users</h1>
 
-<br>
+<table class="table table-light">
+  <thead>
+    <tr>
+      <th class="table-dark bg-primary">Name</th>
+      <th class="table-dark bg-primary">Email</th>
+      <th class="table-dark bg-primary" colspan="2"></th>
+    </tr>
+  </thead>
 
-<%= link_to 'New User', new_user_path %>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.full_name, user %></td>
+        <td><%= user.email %></td>
+        <% if logged_in? && current_user == user %>
+          <td><%= link_to 'Edit Profile', edit_user_path(user) %></td>
+          <td><%= link_to 'Delete Account', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% elsif logged_in? && current_user.friends.include?(user) %>
+          <td><%= link_to 'Remove Friend', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td></td>
+        <% elsif logged_in? && current_user.requested_friends.include?(user) %>
+          <td><%= link_to 'Cancel Friend Request', delete_friend_user_path(user), method: :delete, data: { confrim: 'Are you sure?' } %></td>
+          <td></td>
+        <% elsif logged_in? && current_user.pending_friends.include?(user) %>
+          <td><%= link_to 'Accept Friend Request', accept_friend_request_user_path(user), method: :patch %></td>
+          <td><%= link_to 'Decline Friend Request', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% elsif logged_in? %>
+          <td><%= link_to 'Send Friend Request', send_friend_request_user_path(user), method: :post %>
+          <td></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

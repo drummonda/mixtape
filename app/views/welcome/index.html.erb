@@ -1,0 +1,28 @@
+<% if logged_in? %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <%= render 'mixes/form', mix: @mix %>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <% if @mixes.blank? %>
+        <p class="text-center">There aren't any mixes yet, you should create one!</p>
+
+      <% else %>
+        <% @mixes.each do |mix| %>
+          <p>Name: #{mix.name}</p>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <h1>Welcome to MixTape!</h1>
+      <p>Sign up or log in to get started!</p>
+    </div>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @mixtape = Mixtape.new
+    @mix = Mix.new
     @song = Song.new
   end
 
