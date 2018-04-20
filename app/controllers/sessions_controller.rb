@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   # attempts to log the user in
   def create
     @user = User.find_by(email: params[:email])
-    if !@user.nil? && @user.password == params[:password]
+    if !@user.nil? && @user.password == params[:password_hash]
       session[:user_id] = @user.id
       redirect_to root_path
     else
