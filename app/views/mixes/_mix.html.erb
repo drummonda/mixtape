@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body">
+    <span class="card-title">
+      <strong><%= link_to mix.user.full_name, mix.user %></strong>
+    </span>
+    <br>
+    <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(mix.updated_at) %> ago</small>
+    <p class="card-text"><%= mix.mix_name %></p>
+    <% if current_user == mix.user %>
+      <%= link_to 'View', mix_path(mix), class: 'card-link' %>
+      <%= link_to 'Edit', edit_mix_path(mix), class: 'card-link' %>
+      <%= link_to 'Delete', mix, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+    <% end %>
+  </div>
+</div>

@@ -1,14 +1,17 @@
+<h1>Welcome to your MixTape Deck!</h1>
+<h3>Scroll down to see all your friends' most recent MixTapes</h3>
+<br>
 <% if logged_in? %>
   <div class="row">
-    <div class="col-lg-6 offset-lg-3">
+    <div class="col-lg-6">
       <%= render 'mixes/form', mix: @mix %>
     </div>
   </div>
   <br>
   <div class="row">
-    <div class="col-lg-6 offset-lg-3">
+    <div class="col-lg-6">
       <% if @mixes.blank? %>
-        <p class="text-center">There aren't any mixes yet, you should create one!</p>
+        <p class="text-left">There aren't any mixes yet, you should create one!</p>
 
       <% else %>
         <% @mixes.each do |mix| %>
@@ -20,7 +23,7 @@
   </div>
 <% else %>
   <div class="row">
-    <div class="col-lg-6 offset-lg-3">
+    <div class="col-lg-6">
       <h1>Welcome to MixTape!</h1>
       <p>Sign up or log in to get started!</p>
     </div>

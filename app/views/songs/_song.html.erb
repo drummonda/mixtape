@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-body">
+    <span class="card-title">
+      <strong><%= link_to song.user.full_name, song.user %></strong>
+    </span>
+    <br>
+    <small class="card-subtitle text-muted">Uploaded <%= time_ago_in_words(song.created_at) %> ago</small>
+    <p class="card-text"><%= song.song_title %></p>
+    <% if current_user == song.user %>
+      <%= link_to 'Edit', edit_song_path(song), class: 'card-link' %>
+      <%= link_to 'Delete', song, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function()
+            {
+        var myCirclePlayer = new CirclePlayer("#jquery_jplayer_1",
+        {
+            mp3: song.mp3_file_name
+        }, {
+                supplied: "mp3",
+                cssSelectorAncestor: "#cp_container_1",
+                swfPath: "js",
+                wmode: "window"
+        });
+      });
+    </script>
+    <% end %>
+  </div>
+</div>

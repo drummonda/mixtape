@@ -1,5 +1,5 @@
 class MixesController < ApplicationController
-  before_action :set_mix, only: [:show, :edit, :update, :destroy]
+  before_action :set_mix, only: [:show, :edit, :update, :destroy, :all_songs]
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
 
   # GET /playlists
@@ -50,6 +50,22 @@ class MixesController < ApplicationController
   def destroy
     @mix.destroy if @mix.user == current_user
     redirect_back(fallback_location: @mix.user)
+  end
+
+  # Add a song to a mix by creating a collection for the song + mix
+  def add_song
+    current_mix.add_song(@song)
+    redirect_back(fallback_location: @mix)
+  end
+
+  # Remove a song from a mix by deleting the collection that connects them
+  def remove_song
+    current_mix.remove_song(@song)
+    redirect_back(fallback_location: @mix)
+  end
+
+  # Return all songs that exist in a mix
+  def all_songs
   end
 
   private

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: [:index, :new, :create, :friend_requests]
-  before_action :authenticate_user, only: [:update, :destroy, :friend_requests, :send_friend_request, :accept_friend_request, :delete_friend]
+  before_action :set_user, except: [:index, :new, :create, :friend_requests, :all_songs, :all_mixes]
+  before_action :authenticate_user, only: [:update, :destroy, :friend_requests, :all_songs, :all_mixes, :send_friend_request, :accept_friend_request, :delete_friend]
 
   # GET /users
   # GET /users.json

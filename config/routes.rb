@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  resources :mixes, except: [:index, :show]
-  resources :songs, except: [:index, :show]
+  resources :songs, except: [:show]
+
+  resources :mixes do
+    member do
+      patch 'add_song'
+      put 'add_song'
+      delete 'remove_song'
+    end
+  end
 
   resources :users do
     member do

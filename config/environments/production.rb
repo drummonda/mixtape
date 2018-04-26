@@ -88,4 +88,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  # Mapping of content types
+  #Paperclip.options[:content_type_mappings] = { mp3: "application/octet-stream" }
+
+  # Set up paperclip defaults
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_region => 'us-east-2',
+    :bucket => 'drummonda-mixtape',
+    :path => '/:class/:attachment/:id_partition/:style/:filename',
+    :s3_credentials => "#{Rails.root}/config/aws.yml",
+  }
 end

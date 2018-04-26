@@ -3,6 +3,7 @@ class User < ApplicationRecord
   include BCrypt
 
   has_many :mixes, dependent: :destroy
+  has_many :songs, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends,
            -> { where(friendships: { state: 'accepted' }) },
@@ -34,9 +35,9 @@ class User < ApplicationRecord
   def accept_friend_request(friend)
     return unless Friendship.exists?(user: self, friend: friend) &&
                   Friendship.exists?(user: friend, friend: self)
-    user_frienship = Friendship.where(user_id: id, friend_id: friend.id)
+    user_friendship = Friendship.where(user_id: id, friend_id: friend.id)
     friend_friendship = Friendship.where(user_id: friend.id, friend_id: id)
-    user_frienship.update(state: 'accepted')
+    user_friendship.update(state: 'accepted')
     friend_friendship.update(state: 'accepted')
   end
 

@@ -13,20 +13,21 @@
 
   <div class="field">
     <%= form.label :song_title %>
-    <%= form.text_field :song_title, id: :song_song_title %>
+    <%= form.text_field :song_title, id: :song_title %>
   </div>
 
   <div class="field">
     <%= form.label :song_artist %>
-    <%= form.text_field :song_artist, id: :song_song_artist %>
+    <%= form.text_field :song_artist, id: :song_artist %>
   </div>
 
   <div class="field">
-    <%= form.label :playlist_id_id %>
-    <%= form.text_field :playlist_id_id, id: :song_playlist_id_id %>
+    <%= form.label :mp3 %>
+    <%= form.file_field :mp3, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Upload Song' %>
   </div>
 <% end %>
+

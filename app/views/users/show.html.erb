@@ -44,18 +44,20 @@
     </table>
   </div>
   <div class="col-lg-8 order-1 order-lg-2">
-    <% if current_user == @user %>
-      <div class="clearfix">
-        <%= render 'mixes/form', mix: @mix %>
-      </div>
-    <br>
-    <% end %>
-
     <% if @user.mixes.empty? %>
       <p class="text-center"><%= @user.full_name %> doesn't have any mixes yet.</p>
+      
     <% else %>
       <% @user.mixes.each do |mix| %>
         <%= render 'mixes/mix', mix: mix %>
+        <br>
+      <% end %>
+    <% end %>
+    <% if @user.songs.empty? %>
+      <p class="text-center"><%= @user.full_name %> doesn't have any songs yet.</p>
+    <% else %>
+      <% @user.songs.each do |song| %>
+        <%= render 'songs/song', song: song %>
         <br>
       <% end %>
     <% end %>

@@ -1,6 +1,50 @@
 <h1>Editing Playlist</h1>
 
-<%= render 'form', playlist: @playlist %>
+<%= render 'form', mix: @mix %>
 
-<%= link_to 'Show', @playlist %> |
-<%= link_to 'Back', playlists_path %>
+<table class="table table-light">
+  <thead>
+    <tr>
+      <th class="table-dark bg-primary">All Songs</th>
+      <th class="table-dark bg-primary" colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @mix.all_songs.empty? %>
+      <td>No songs in this mix yet.</td>
+    <% else %>
+      <% @mix.all_songs.each do |song| %>
+        <tr>
+          <td><%= link_to song.song_title %></td>
+          <td><%= link_to song.song_artist %></td>
+          <td><%= link_to 'Remove Song from Mix', remove_song_mix_path(song), method: :delete %></td>
+        </tr>
+      <% end %>
+  <% end %>
+</table>
+
+<table class="table table-light">
+  <thead>
+    <tr>
+      <th class="table-dark bg-primary">Add Songs</th>
+      <th class="table-dark bg-primary" colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if current_user.songs.empty? %>
+      <td>No songs to add yet.</td>
+    <% else %>
+      <% current_user.songs.each do |song| %>
+        <tr>
+          <td><%= song.song_title %></td>
+          <td><%= song.song_artist %></td>
+          <td><%= link_to 'Add Song to Mix', add_song_mix_path(song), method: :patch %></td>
+        </tr>
+      <% end %>
+  <% end %>
+</table>
+
+<%= link_to 'Show', @mix %> |
+<%= link_to 'Back', mixes_path %>

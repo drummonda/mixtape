@@ -7,7 +7,6 @@
     <tr>
       <th>Song title</th>
       <th>Song artist</th>
-      <th>Playlist</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,10 +16,9 @@
       <tr>
         <td><%= song.song_title %></td>
         <td><%= song.song_artist %></td>
-        <td><%= song.playlist_id %></td>
-        <td><%= link_to 'Show', song %></td>
         <td><%= link_to 'Edit', edit_song_path(song) %></td>
         <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= audio_tag(song.s3_path, autoplay: true, controls: true) %></td>
       </tr>
     <% end %>
   </tbody>
