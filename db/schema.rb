@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419001758) do
+ActiveRecord::Schema.define(version: 20180427002954) do
 
   create_table "collections", force: :cascade do |t|
     t.integer "song_id"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20180419001758) do
     t.index ["user_id"], name: "index_mixes_on_user_id"
   end
 
+  create_table "song_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "song_id"
+    t.index ["song_id"], name: "index_song_users_on_song_id"
+    t.index ["user_id"], name: "index_song_users_on_user_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string "song_title"
     t.string "song_artist"
@@ -48,8 +55,6 @@ ActiveRecord::Schema.define(version: 20180419001758) do
     t.string "mp3_content_type"
     t.integer "mp3_file_size"
     t.datetime "mp3_updated_at"
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

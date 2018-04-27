@@ -2,8 +2,9 @@ class User < ApplicationRecord
   # include Bcrypt gem for password encryption
   include BCrypt
 
+  has_many :song_users
+  has_many :songs, through: :song_users
   has_many :mixes, dependent: :destroy
-  has_many :songs, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends,
            -> { where(friendships: { state: 'accepted' }) },
@@ -46,6 +47,18 @@ class User < ApplicationRecord
                   Friendship.exists?(user: friend, friend: self)
     Friendship.where(user_id: id, friend_id: friend.id).destroy_all
     Friendship.where(user_id: friend.id, friend_id: id).destroy_all
+  end
+
+  # Add a song to a user
+  def add_song(song)
+    return if Song.find_by_id(song).nil?
+    self.songs << song
+  end
+
+  # Remove a song from a user
+  def remove_song(song)
+    return if Song.find_by_id(song).nil?
+    self.songs.delete(song)
   end
 
   def password

@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :set_song, only: [:show, :destroy]
   before_action :authenticate_user, only: [:show, :edit, :update, :destroy]
 
   # GET /songs
@@ -18,38 +18,28 @@ class SongsController < ApplicationController
     @song = Song.new
   end
 
-  # GET /songs/1/edit
-  def edit
-    redirect_to root_path unless @song.user == current_user
-  end
-
   # POST /songs
   # POST /songs.json
   def create
-    @song = current_user.songs.new(song_params)
+    @song = Song.new(song_params)
+    current_user.songs << @song
 
     if @song.save
-      redirect_to @song.user
+      redirect_to current_user
     else
       render :new
-    end
-  end
-
-  # PATCH/PUT /songs/1
-  # PATCH/PUT /songs/1.json
-  def update
-    if @song.user == current_user && @song.update(song_params)
-      redirect_to @song.user
-    else
-      render :edit
     end
   end
 
   # DELETE /songs/1
   # DELETE /songs/1.json
   def destroy
-    @song.destroy if @song.user == current_user
-    redirect_back(fallback_location: @song.user)
+    if @song.users.count == 1 && (@song.users.include? current_user)
+      @song.destroy
+    elsif @song.users.include? current_user
+      current_user.songs.delete(@song)
+    end
+    redirect_back(fallback_location: current_user)
   end
 
   private

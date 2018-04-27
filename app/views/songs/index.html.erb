@@ -17,17 +17,19 @@
         <td><%= song.song_title %></td>
         <td><%= song.song_artist %></td>
         <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
-        <td><%= link_to 'Edit', edit_song_path(song) %></td>
-        <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Remove Song from Songs', remove_song_user_path(:id => current_user.id, :song => song, :song_id => song.id), method: :delete %></td>
     <% end %>
     <% current_user.friends.each do |user| %>
         <% if logged_in? && current_user.friends.include?(user) %>
-          <% @songs.each do |song| %>
-            <tr>
-              <td><%= song.song_title %></td>
-              <td><%= song.song_artist %></td>
-              <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
-            </tr>
+          <% user.songs.each do |song| %>
+            <% if !current_user.songs.include? song %>
+              <tr>
+                <td><%= song.song_title %></td>
+                <td><%= song.song_artist %></td>
+                <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
+                <td><%= link_to 'Add Song to Songs', add_song_user_path(:id => current_user.id, :song => song, :song_id => song.id), method: :patch %></td>
+              </tr>
+            <% end %>
           <% end %>
         <% end %>
     <% end %>

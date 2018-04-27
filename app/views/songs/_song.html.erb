@@ -1,17 +1,17 @@
 <div class="card">
   <div class="card-body">
-    <span class="card-title">
-      <strong><%= link_to song.user.full_name, song.user %></strong>
-    </span>
-    <br>
     <small class="card-subtitle text-muted">Uploaded <%= time_ago_in_words(song.created_at) %> ago</small>
     <p class="card-text"><%= song.song_title %></p>
-    <% if current_user == song.user %>
+    <% if song.users.include? current_user %>
       <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
-      <%= link_to 'Edit', edit_song_path(song), class: 'card-link' %>
-      <%= link_to 'Delete', song, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
-    <% elsif song.user.friends.include? current_user %>
-      <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
+      <td><%= link_to 'Remove Song from Songs', remove_song_user_path(:user => @user, :song => song, :song_id => song.id), method: :delete %></td>
+    <% else %>
+      <% song.users.each do |user| %>
+        <% if user.friends.include? current_user %>
+          <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
+          <td><%= link_to 'Add Song to Songs', add_song_user_path(:user => @user, :song => song, :song_id => song.id), method: :patch %></td>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>

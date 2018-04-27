@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: [:index, :new, :create, :friend_requests, :all_songs, :all_mixes]
+  before_action :set_user, except: [:index, :new, :create, :friend_requests, :all_mixes]
   before_action :authenticate_user, only: [:update, :destroy, :friend_requests, :all_songs, :all_mixes, :send_friend_request, :accept_friend_request, :delete_friend]
 
   # GET /users
@@ -55,6 +55,20 @@ class UsersController < ApplicationController
     @user.destroy if @user == current_user
     reset_session
     redirect_to users_path
+  end
+
+  # add a song
+  def add_song
+    @song = Song.find_by_id(params[:song_id])
+    @user.add_song(@song)
+    redirect_back(fallback_location: @user)
+  end
+
+  # remove a song
+  def remove_song
+    @song = Song.find_by_id(params[:song_id])
+    @user.remove_song(@song)
+    redirect_back(fallback_location: @user)
   end
 
   def friend_requests

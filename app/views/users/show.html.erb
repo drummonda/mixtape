@@ -46,19 +46,30 @@
 </div>
 <div class="col-lg-8 order-1 order-lg-2">
   <% if @user.mixes.empty? %>
-    <p class="text-center"><%= @user.full_name %> doesn't have any mixes yet.</p>  
+    <p class="text-center"><%= @user.full_name %> doesn't have any mixes yet. Create one!</p> 
+    <%= render 'mixes/form', mix: @mix %>
+    <br>
   <% else %>
+    <p class="text-center">Current Mixes</p>
     <% @user.mixes.each do |mix| %>
       <%= render 'mixes/mix', mix: mix %>
       <br>
     <% end %>
+    <p class="text-center">Add a new mix!</p>
+    <%= render 'mixes/form', mix: @mix %>
+    <br>
+    <br>
   <% end %>
   <% if @user.songs.empty? %>
-    <p class="text-center"><%= @user.full_name %> doesn't have any songs yet.</p>
+    <p class="text-center">Upload a new song!</p>
+    <%= render 'songs/form', song: @song %>
   <% else %>
+    <p class="text-center">Current Songs</p>
     <% @user.songs.each do |song| %>
       <%= render 'songs/song', song: song %>
       <br>
     <% end %>
+    <p class="text-center">Upload a new song!</p>
+    <%= render 'songs/form', song: @song %>
   <% end %>
 </div>
