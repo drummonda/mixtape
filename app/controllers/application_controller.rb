@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= session[:user_id] && User.find(session[:user_id])
   end
 
-  def current_mix
-    @current_mix ||= Mix.find(params[:id])
-  end
-
   def authenticate_user
     return if logged_in?
     redirect_to root_path

@@ -12,14 +12,24 @@
   </thead>
 
   <tbody>
-    <% @songs.each do |song| %>
+    <% current_user.songs.each do |song| %>
       <tr>
         <td><%= song.song_title %></td>
         <td><%= song.song_artist %></td>
+        <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
         <td><%= link_to 'Edit', edit_song_path(song) %></td>
         <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= audio_tag(song.s3_path, autoplay: true, controls: true) %></td>
-      </tr>
+    <% end %>
+    <% current_user.friends.each do |user| %>
+        <% if logged_in? && current_user.friends.include?(user) %>
+          <% @songs.each do |song| %>
+            <tr>
+              <td><%= song.song_title %></td>
+              <td><%= song.song_artist %></td>
+              <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
+            </tr>
+          <% end %>
+        <% end %>
     <% end %>
   </tbody>
 </table>

@@ -7,22 +7,11 @@
     <small class="card-subtitle text-muted">Uploaded <%= time_ago_in_words(song.created_at) %> ago</small>
     <p class="card-text"><%= song.song_title %></p>
     <% if current_user == song.user %>
+      <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
       <%= link_to 'Edit', edit_song_path(song), class: 'card-link' %>
       <%= link_to 'Delete', song, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
-    <script type="text/javascript" charset="utf-8">
-      $(document).ready(function()
-            {
-        var myCirclePlayer = new CirclePlayer("#jquery_jplayer_1",
-        {
-            mp3: song.mp3_file_name
-        }, {
-                supplied: "mp3",
-                cssSelectorAncestor: "#cp_container_1",
-                swfPath: "js",
-                wmode: "window"
-        });
-      });
-    </script>
+    <% elsif song.user.friends.include? current_user %>
+      <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
     <% end %>
   </div>
 </div>

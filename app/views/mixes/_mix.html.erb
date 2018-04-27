@@ -10,6 +10,8 @@
       <%= link_to 'View', mix_path(mix), class: 'card-link' %>
       <%= link_to 'Edit', edit_mix_path(mix), class: 'card-link' %>
       <%= link_to 'Delete', mix, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+    <% elsif mix.user.friends.include? current_user %>
+      <%= link_to 'View', mix_path(mix), class: 'card-link' %>
     <% end %>
   </div>
 </div>

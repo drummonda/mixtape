@@ -5,9 +5,10 @@ Rails.application.routes.draw do
 
   resources :mixes do
     member do
-      patch 'add_song'
-      put 'add_song'
-      delete 'remove_song'
+      # fix this
+      patch '/songs/:song_id/add_song', to: 'mixes#add_song', as: :add_song
+      put '/songs/:song_id/add_song', to: 'mixes#add_song'
+      delete '/songs/:song_id/remove_song', to: 'mixes#remove_song', as: :remove_song
     end
   end
 

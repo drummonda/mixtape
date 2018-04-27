@@ -13,8 +13,3 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
-//= require jplayer
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require jquery.jplayer.min

@@ -19,17 +19,17 @@
   </thead>
 
   <tbody>
-    <% if @mix.all_songs.empty? %>
+    <% if @mix.songs.empty? %>
       <td>No songs in this mix yet.</td>
     <% else %>
-      <% @mix.all_songs.each do |song| %>
+      <% @mix.songs.each do |song| %>
         <tr>
           <td><%= link_to song.song_title, song %></td>
           <td><%= link_to song.song_artist, song %></td>
+          <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
         </tr>
       <% end %>
   <% end %>
 </table>
 
-<%= link_to 'Edit', edit_mix_path(@mix) %> |
 <%= link_to 'Back', mixes_path %>
