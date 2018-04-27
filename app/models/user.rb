@@ -52,13 +52,13 @@ class User < ApplicationRecord
   # Add a song to a user
   def add_song(song)
     return if Song.find_by_id(song).nil?
-    self.songs << song
+    songs << song
   end
 
   # Remove a song from a user
   def remove_song(song)
     return if Song.find_by_id(song).nil?
-    self.songs.delete(song)
+    songs.delete(song)
   end
 
   def password
