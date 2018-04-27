@@ -4,12 +4,12 @@
     <p class="card-text"><%= song.song_title %></p>
     <% if song.users.include? current_user %>
       <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
-      <td><%= link_to 'Remove Song from Songs', remove_song_user_path(:user => @user, :song => song, :song_id => song.id), method: :delete %></td>
+      <td><%= link_to 'Remove Song from Songs', remove_song_user_path(:user => @user, :song => song, :song_id => song.id), method: :delete, :class => 'btn btn-primary btn-sm' %></td>
     <% else %>
       <% song.users.each do |user| %>
         <% if user.friends.include? current_user %>
           <td><%= audio_tag(song.s3_path, autoplay: false, controls: true) %></td>
-          <td><%= link_to 'Add Song to Songs', add_song_user_path(:user => @user, :song => song, :song_id => song.id), method: :patch %></td>
+          <td><%= link_to 'Add Song to Songs', add_song_user_path(:user => @user, :song => song, :song_id => song.id), method: :patch, :class => 'btn btn-primary btn-sm' %></td>
         <% end %>
       <% end %>
     <% end %>

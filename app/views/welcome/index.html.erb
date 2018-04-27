@@ -1,11 +1,16 @@
-<h1>Welcome to MixTape!</h1>
-<% if logged_in? %>
-  <h3>Head to your profile to get started uploading songs and making mixes</h3>
-  <h3>Or head to the users page to make some friends and see their music</h3>
-<% else %>
-  <div class="row">
-    <div class="col-lg-6">
-      <p>Sign up or log in to get started!</p>
+<div class="container d-flex vertical-center">
+  <div class="jumbotron bg-dark vertical-center">
+    <h1 class="text-light">Welcome to MixTape!</h1>
+    <body class="unique"></body>
+    <% if logged_in? %>
+      <h3 class="text-light">Head to your profile to get started uploading songs and making mixes</h3>
+      <h3 class="text-light">Or head to the users page to make some friends and see their music</h3>
+    <% else %>
+    <div class="row">
+      <div class="col-lg-6">
+        <p class="text-light">Sign up or log in to get started!</p>
+      </div>
     </div>
+    <% end %>
   </div>
-<% end %>
+</div>

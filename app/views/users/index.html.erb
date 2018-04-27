@@ -15,19 +15,19 @@
         <td><%= link_to user.full_name, user %></td>
         <td><%= user.email %></td>
         <% if logged_in? && current_user == user %>
-          <td><%= link_to 'Edit Profile', edit_user_path(user) %></td>
-          <td><%= link_to 'Delete Account', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Edit Profile', edit_user_path(user), class: 'btn btn-primary btn-sm' %></td>
+          <td><%= link_to 'Delete Account', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %></td>
         <% elsif logged_in? && current_user.friends.include?(user) %>
-          <td><%= link_to 'Remove Friend', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Remove Friend', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %></td>
           <td></td>
         <% elsif logged_in? && current_user.requested_friends.include?(user) %>
-          <td><%= link_to 'Cancel Friend Request', delete_friend_user_path(user), method: :delete, data: { confrim: 'Are you sure?' } %></td>
+          <td><%= link_to 'Cancel Friend Request', delete_friend_user_path(user), method: :delete, data: { confrim: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %></td>
           <td></td>
         <% elsif logged_in? && current_user.pending_friends.include?(user) %>
-          <td><%= link_to 'Accept Friend Request', accept_friend_request_user_path(user), method: :patch %></td>
-          <td><%= link_to 'Decline Friend Request', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Accept Friend Request', accept_friend_request_user_path(user), method: :patch, class: 'btn btn-primary btn-sm' %></td>
+          <td><%= link_to 'Decline Friend Request', delete_friend_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %></td>
         <% elsif logged_in? %>
-          <td><%= link_to 'Send Friend Request', send_friend_request_user_path(user), method: :post %>
+          <td><%= link_to 'Send Friend Request', send_friend_request_user_path(user), method: :post, class: 'btn btn-primary btn-sm' %>
           <td></td>
         <% else %>
           <td></td>

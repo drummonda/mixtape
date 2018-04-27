@@ -7,11 +7,11 @@
     <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(mix.updated_at) %> ago</small>
     <p class="card-text"><%= mix.mix_name %></p>
     <% if current_user == mix.user %>
-      <%= link_to 'Listen', mix_path(mix), class: 'card-link' %>
-      <%= link_to 'Edit', edit_mix_path(mix), class: 'card-link' %>
-      <%= link_to 'Delete', mix, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+      <%= link_to 'Listen', mix_path(mix), class: 'btn btn-primary btn-sm' %>
+      <%= link_to 'Edit', edit_mix_path(mix), class: 'btn btn-primary btn-sm' %>
+      <%= link_to 'Delete', mix, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary btn-sm' %>
     <% elsif mix.user.friends.include? current_user %>
-      <%= link_to 'Listen', mix_path(mix), class: 'card-link' %>
+      <%= link_to 'Listen', mix_path(mix), class: 'btn btn-primary btn-sm' %>
     <% end %>
   </div>
 </div>

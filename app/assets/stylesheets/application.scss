@@ -2,6 +2,23 @@ $theme-colors: (
   "primary": #ff4d4d
 );
 
+.button:focus
+{
+    font-size: 13px;
+    color:white;
+}
+
 $body-bg: #f2f2f2;
+
+.unique { /* In Your CSS File */
+   background-image: url('background1.jpg');
+   background-size:cover;
+   background-repeat:no-repeat;
+}
+
+.jumbotron {
+   display: table-cell;
+   vertical-align: middle;
+}
 
 @import "bootstrap";

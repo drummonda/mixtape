@@ -12,11 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :mix_name, class: 'form-control', placeholder: "Mix Name" %>
-    <%= form.text_field :mix_name, id: :mix_name %>
+    <%= form.text_field :mix_name, id: :mix_name, class: 'form-control', placeholder: "Mix Name"  %>
   </div>
-
+  <br>
   <div class="actions">
-    <%= form.submit class: 'btn btn-sm btn-primary float-right' %>
+    <%= form.submit class: 'btn btn-sm btn-primary float-left' %>
   </div>
 <% end %>
